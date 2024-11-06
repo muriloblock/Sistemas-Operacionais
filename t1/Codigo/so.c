@@ -16,37 +16,43 @@
 // CONSTANTES E TIPOS {{{1
 // intervalo entre interrupções do relógio
 #define INTERVALO_INTERRUPCAO 50   // em instruções executadas
-#define MAX_PROCESSOS 16 // Defina um número máximo de processos permitidos
+#define MAX_PROCESSOS 10
+#define PID_NENHUM -1  // Valor que indica ausência de um processo em execução
 
+// Enum para o modo do processador
 typedef enum {
-    PROCESSO_PRONTO,
-    PROCESSO_EXECUTANDO,
-    PROCESSO_BLOQUEADO,
-    PROCESSO_TERMINADO
+    KERNEL = 0,
+    USUARIO = 1,
+} modo_processo_t;
+
+// Enum para o estado do processo
+typedef enum {
+    PARADO = 0,
+    EXECUTANDO = 1,
+    PRONTO = 2,       // Novo estado PRONTO
+    BLOQUEADO = 3     // Novo estado BLOQUEADO
 } estado_processo_t;
 
+// Estrutura do processo usando os enums para estado e modo
 typedef struct {
-    int pid;         // Identificador único do processo
-    int pc;          // Program Counter do processo
-    estado_processo_t estado; // Estado atual do processo
+    int pid;                   // Identificador do processo
+    int pc;                    // Contador de programa
+    estado_processo_t estado;  // Estado do processo
+    modo_processo_t modo;      // Modo de operação do processo
+    int pid_esperado;          // PID do processo aguardado (caso bloqueado)
+    // Outros registradores podem ser adicionados aqui
 } processo_t;
-
-typedef struct {
-    processo_t processos[MAX_PROCESSOS]; // Vetor de processos
-    int contador_processos;               // Contador de processos ativos
-} tabela_processos_t;
-
 
 struct so_t {
   cpu_t *cpu;
   mem_t *mem;
   es_t *es;
   console_t *console;
-  tabela_processos_t tabela_processos; // Tabela de processos
-  processo_t *processo_atual; // Adiciona o campo para o processo atual
+  processo_t tabela_processos[MAX_PROCESSOS]; // Tabela de processos
+  int processo_atual;                        // PID do processo em execução
   bool erro_interno;
+  // t1: tabela de processos, processo corrente, pendências, etc
 };
-
 
 // função de tratamento de interrupção (entrada no SO)
 static int so_trata_interrupcao(void *argC, int reg_A);
@@ -69,26 +75,28 @@ so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console)
   self->es = es;
   self->console = console;
   self->erro_interno = false;
+  self->processo_atual = PID_NENHUM; // Nenhum processo em execução no início
 
-  // quando a CPU executar uma instrução CHAMAC, deve chamar a função
-  //   so_trata_interrupcao, com primeiro argumento um ptr para o SO
+  // Inicializa a tabela de processos
+  for (int i = 0; i < MAX_PROCESSOS; i++) {
+    self->tabela_processos[i].pid = PID_NENHUM;        // Nenhum processo
+    self->tabela_processos[i].pc = 0;                  // PC inicial
+    self->tabela_processos[i].estado = PARADO;         // Estado inicial
+    self->tabela_processos[i].modo = USUARIO;          // Modo inicial padrão
+    // Outros registradores podem ser inicializados aqui, se necessário
+  }
+
+  // Define o tratamento de interrupções
   cpu_define_chamaC(self->cpu, so_trata_interrupcao, self);
 
-  // coloca o tratador de interrupção na memória
-  // quando a CPU aceita uma interrupção, passa para modo supervisor, 
-  //   salva seu estado à partir do endereço 0, e desvia para o endereço
-  //   IRQ_END_TRATADOR
-  // colocamos no endereço IRQ_END_TRATADOR o programa de tratamento
-  //   de interrupção (escrito em asm). esse programa deve conter a 
-  //   instrução CHAMAC, que vai chamar so_trata_interrupcao (como
-  //   foi definido acima)
+  // Carrega o programa de tratamento de interrupção
   int ender = so_carrega_programa(self, "trata_int.maq");
   if (ender != IRQ_END_TRATADOR) {
     console_printf("SO: problema na carga do programa de tratamento de interrupção");
     self->erro_interno = true;
   }
 
-  // programa o relógio para gerar uma interrupção após INTERVALO_INTERRUPCAO
+  // Programa o timer para gerar uma interrupção após INTERVALO_INTERRUPCAO
   if (es_escreve(self->es, D_RELOGIO_TIMER, INTERVALO_INTERRUPCAO) != ERR_OK) {
     console_printf("SO: problema na programação do timer");
     self->erro_interno = true;
@@ -172,12 +180,23 @@ static void so_escalona(so_t *self)
 
 static int so_despacha(so_t *self)
 {
-  // t1: se houver processo corrente, coloca o estado desse processo onde ele
-  //   será recuperado pela CPU (em IRQ_END_*) e retorna 0, senão retorna 1
-  // o valor retornado será o valor de retorno de CHAMAC
-  if (self->erro_interno) return 1;
-  else return 0;
+    // Verifica se existe um processo em execução
+    if (self->processo_atual == PID_NENHUM) {
+        return 1;  // Indica que não há processo para executar
+    }
+
+    // Pega o processo atual na tabela de processos
+    processo_t *proc = &self->tabela_processos[self->processo_atual];
+
+    // Carrega o estado do processo atual nos endereços de interrupção para a CPU
+    mem_escreve(self->mem, IRQ_END_PC, proc->pc);       // Define o PC para o próximo ciclo da CPU
+    mem_escreve(self->mem, IRQ_END_modo, proc->modo);    // Define o modo (usuário ou kernel)
+
+    // Aqui, poderiam ser adicionados outros registradores, como A, X, Y, etc.
+
+    return 0;  // Indica que o processo foi carregado corretamente
 }
+
 
 // TRATAMENTO DE UMA IRQ {{{1
 
@@ -209,38 +228,8 @@ static void so_trata_irq(so_t *self, int irq)
   }
 }
 
-static processo_t* inicializa_processo_init(so_t *self) {
-    if (self->tabela_processos.contador_processos >= MAX_PROCESSOS) {
-        console_printf("SO: limite de processos atingido");
-        return NULL; // Não há espaço para um novo processo
-    }
-
-    processo_t *init_process = malloc(sizeof(processo_t));
-    if (init_process == NULL) {
-        console_printf("SO: erro na alocação de memória para init_process");
-        self->erro_interno = true;
-        return NULL; // Falha na alocação
-    }
-
-    // Inicializa os campos do processo init
-    init_process->pid = self->tabela_processos.contador_processos; // Usar contador como PID
-    init_process->pc = 0; // Inicializa o PC para o início do processo
-    init_process->estado = PROCESSO_PRONTO; // Inicializa como pronto
-
-    return init_process;
-}
-
-/* interrupção gerada uma única vez, quando a CPU inicializa
 static void so_trata_irq_reset(so_t *self)
 {
-  // t1: deveria criar um processo para o init, e inicializar o estado do
-  //   processador para esse processo com os registradores zerados, exceto
-  //   o PC e o modo.
-  // como não tem suporte a processos, está carregando os valores dos
-  //   registradores diretamente para a memória, de onde a CPU vai carregar
-  //   para os seus registradores quando executar a instrução RETI
-
-  // coloca o programa init na memória
   int ender = so_carrega_programa(self, "init.maq");
   if (ender != 100) {
     console_printf("SO: problema na carga do programa inicial");
@@ -248,40 +237,20 @@ static void so_trata_irq_reset(so_t *self)
     return;
   }
 
-  // altera o PC para o endereço de carga
-  mem_escreve(self->mem, IRQ_END_PC, ender);
-  // passa o processador para modo usuário
-  mem_escreve(self->mem, IRQ_END_modo, usuario);
+  // Configura o processo init na tabela de processos
+  self->tabela_processos[0].pid = 0;               // Primeiro processo, com PID 0
+  self->tabela_processos[0].pc = ender;            // Define o PC como o endereço de carga de init
+  self->tabela_processos[0].estado = EXECUTANDO;   // Define o estado como executando
+  self->tabela_processos[0].modo = USUARIO;        // Modo de operação do processo (usuário)
+
+  // Define o processo init como o processo atual
+  self->processo_atual = 0;
+
+  // Carrega o contexto do processo init para a CPU
+  so_despacha(self);
 }
-*/
 
-static void so_trata_irq_reset(so_t *self) {
-    // Coloca o programa init na memória
-    int ender = so_carrega_programa(self, "init.maq");
-    if (ender != 100) {
-        console_printf("SO: problema na carga do programa inicial");
-        self->erro_interno = true;
-        return;
-    }
 
-    // Inicializa o processo init
-    processo_t *init_process = inicializa_processo_init(self);
-    if (init_process == NULL) {
-        return; // Se houve erro na inicialização, retorna
-    }
-
-    // Adiciona o processo init à tabela de processos
-    self->tabela_processos.processos[self->tabela_processos.contador_processos] = *init_process;
-    self->tabela_processos.contador_processos++;
-
-    // Configura o PC do processo init na memória
-    mem_escreve(self->mem, IRQ_END_PC, ender); // Altera o PC para o endereço de carga
-    // Passa o processador para modo usuário
-    mem_escreve(self->mem, IRQ_END_modo, usuario);
-
-    // Libera a memória do processo init, pois já foi copiado para a tabela
-    free(init_process);
-}
 
 // interrupção gerada quando a CPU identifica um erro
 static void so_trata_irq_err_cpu(so_t *self)
@@ -446,8 +415,6 @@ static void so_chamada_escr(so_t *self)
 
 // implementação da chamada se sistema SO_CRIA_PROC
 // cria um processo
-
-/*
 static void so_chamada_cria_proc(so_t *self)
 {
   // ainda sem suporte a processos, carrega programa e passa a executar ele
@@ -472,59 +439,6 @@ static void so_chamada_cria_proc(so_t *self)
   //   do processo que pediu a criação
   mem_escreve(self->mem, IRQ_END_A, -1);
 }
-*/
-
-// Função para atribuir um PID único
-static int atribui_pid_unico(so_t *self) {
-    static int proximo_pid = 1; // Contador de PID
-    return proximo_pid++;
-}
-
-static int adiciona_processo(tabela_processos_t *tabela, processo_t *processo) {
-    if (tabela->contador_processos < MAX_PROCESSOS) {
-        tabela->processos[tabela->contador_processos] = *processo; // Adiciona o novo processo
-        tabela->contador_processos++;
-        return 0; // Sucesso
-    }
-    return -1; // Tabela cheia
-}
-
-// implementação da chamada se sistema SO_CRIA_PROC
-// cria um processo
-static void so_chamada_cria_proc(so_t *self) {
-    int ender_proc;
-    if (mem_le(self->mem, IRQ_END_X, &ender_proc) == ERR_OK) {
-        char nome[100];
-        if (copia_str_da_mem(100, nome, self->mem, ender_proc)) {
-            int ender_carga = so_carrega_programa(self, nome);
-            if (ender_carga > 0) {
-                // Cria um novo processo
-                processo_t *novo_processo = malloc(sizeof(processo_t));
-                if (novo_processo == NULL) {
-                    mem_escreve(self->mem, IRQ_END_A, -1); // Erro ao alocar memória
-                    return;
-                }
-
-                // Inicializa o novo processo
-                novo_processo->pid = atribui_pid_unico(self);
-                novo_processo->pc = ender_carga; // Define o PC do novo processo
-
-                // Adiciona o novo processo à tabela
-                if (adiciona_processo(&self->tabela_processos, novo_processo) != 0) {
-                    free(novo_processo); // Libera memória se não puder adicionar
-                    mem_escreve(self->mem, IRQ_END_A, -1); // Erro ao adicionar à tabela
-                    return;
-                }
-
-                // Retorna o PID do novo processo
-                mem_escreve(self->mem, IRQ_END_A, novo_processo->pid);
-                return;
-            }
-        }
-    }
-    // Se chegou aqui, houve um erro. Retorna -1 no reg A.
-    mem_escreve(self->mem, IRQ_END_A, -1);
-}
 
 // implementação da chamada se sistema SO_MATA_PROC
 // mata o processo com pid X (ou o processo corrente se X é 0)
@@ -534,7 +448,6 @@ static void so_chamada_mata_proc(so_t *self)
   // ainda sem suporte a processos, retorna erro -1
   console_printf("SO: SO_MATA_PROC não implementada");
   mem_escreve(self->mem, IRQ_END_A, -1);
-  exit(0);
 }
 
 // implementação da chamada se sistema SO_ESPERA_PROC
