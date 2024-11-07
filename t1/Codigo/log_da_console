@@ -2,81 +2,1539 @@ SO: carga de 'trata_int.maq' em 10-15
 CMD: 'C'
 SO: recebi IRQ 0 (Reset)
 SO: carga de 'init.maq' em 100-270
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
-SO: chamada de sistema 2
-CMD: 'C'
+SO: chamada de sistema 7
+SO: carga de 'p1.maq' em 7000-7241
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
-SO: chamada de sistema 2
+SO: chamada de sistema 7
+SO: carga de 'p2.maq' em 8000-8243
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 7
+SO: carga de 'p3.maq' em 9000-9241
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 9
+SO: SO_ESPERA_PROC não implementada
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 9
+SO: SO_ESPERA_PROC não implementada
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 9
+SO: SO_ESPERA_PROC não implementada
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
-SO: recebi IRQ 2 (Chamada de sistema)
-SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 3 (E/S: relógio)
-SO: interrupção do relógio (não tratada)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 SO: recebi IRQ 2 (Chamada de sistema)
 SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 8
+SO: SO_MATA_PROC não implementada
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 3 (E/S: relógio)
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
+SO: recebi IRQ 2 (Chamada de sistema)
+SO: chamada de sistema 2
+SO: Processo 0 mudou para PRONTO
+SO: Iniciando escalonamento
+SO: Processo 0 - Estado: 2
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo -1 - Estado: 0
+SO: Processo 0 selecionado para execução
+SO: Processo 0 está agora EXECUTANDO
 CMD: 'F'
 Fim da execução.
-relógio: 466
+relógio: 1195

@@ -155,27 +155,83 @@ static int so_trata_interrupcao(void *argC, int reg_A)
 
 static void so_salva_estado_da_cpu(so_t *self)
 {
-  // t1: salva os registradores que compõem o estado da cpu no descritor do
-  //   processo corrente. os valores dos registradores foram colocados pela
-  //   CPU na memória, nos endereços IRQ_END_*
-  // se não houver processo corrente, não faz nada
+    // Verifica se existe um processo em execução
+    if (self->processo_atual == PID_NENHUM) {
+        return;  // Se não houver processo em execução, não faz nada
+    }
+
+    // Pega o descritor do processo atual
+    processo_t *proc = &self->tabela_processos[self->processo_atual];
+
+    // Salva o contador de programa (PC) do processo atual
+    mem_le(self->mem, IRQ_END_PC, &proc->pc); // O PC da CPU é lido e copiado para o processo
+
+    // Salva o modo (usuário ou kernel) do processo
+    // Cast para (int*) para que a função mem_le aceite o tipo
+    mem_le(self->mem, IRQ_END_modo, (int*)&proc->modo); // O modo da CPU é lido e copiado para o processo
+
+    // Caso haja outros registradores importantes, como A, X, Y, etc., também deve-se salvá-los.
+    // Exemplo:
+    // mem_le(self->mem, IRQ_END_A, &proc->registrador_a);
+    // mem_le(self->mem, IRQ_END_X, &proc->registrador_x);
+    // mem_le(self->mem, IRQ_END_Y, &proc->registrador_y);
+    
+    // Salva o estado (se o processo está em execução ou bloqueado, etc.)
+    // Isso já deve estar sendo gerido pelo escalonador, mas é bom garantir.
+    proc->estado = EXECUTANDO;  // Isso pode ser alterado dependendo do contexto, como bloqueado ou pronto
 }
+
 
 static void so_trata_pendencias(so_t *self)
 {
-  // t1: realiza ações que não são diretamente ligadas com a interrupção que
-  //   está sendo atendida:
-  // - E/S pendente
-  // - desbloqueio de processos
-  // - contabilidades
+    // t1: realiza ações que não são diretamente ligadas com a interrupção que
+    //   está sendo atendida:
+    // - E/S pendente
+    // - desbloqueio de processos
+    // - contabilidades
+
+    // Garantir que o processo corrente mude para PRONTO após a execução
+    if (self->processo_atual != PID_NENHUM) {
+        processo_t *proc = &self->tabela_processos[self->processo_atual];
+        if (proc->estado == EXECUTANDO) {
+            // Depois de executar, coloca o processo de volta como PRONTO
+            proc->estado = PRONTO;
+            console_printf("SO: Processo %d mudou para PRONTO\n", self->processo_atual);
+        }
+    }
 }
+
 
 static void so_escalona(so_t *self)
 {
-  // escolhe o próximo processo a executar, que passa a ser o processo
-  //   corrente; pode continuar sendo o mesmo de antes ou não
-  // t1: na primeira versão, escolhe um processo caso o processo corrente não possa continuar
-  //   executando. depois, implementar escalonador melhor
+    console_printf("SO: Iniciando escalonamento\n");
+    int proximo_pid = PID_NENHUM;
+
+    // Exibe o estado de cada processo antes de escolher o próximo
+    for (int i = 0; i < MAX_PROCESSOS; i++) {
+        console_printf("SO: Processo %d - Estado: %d\n", 
+                       self->tabela_processos[i].pid, 
+                       self->tabela_processos[i].estado);
+    }
+
+    // Procura o próximo processo em estado PRONTO
+    for (int i = 0; i < MAX_PROCESSOS; i++) {
+        if (self->tabela_processos[i].estado == PRONTO) {
+            proximo_pid = self->tabela_processos[i].pid;
+            console_printf("SO: Processo %d selecionado para execução\n", proximo_pid);
+            break;
+        }
+    }
+
+    // Define o próximo processo a ser executado
+    if (proximo_pid != PID_NENHUM) {
+        self->processo_atual = proximo_pid;
+        self->tabela_processos[proximo_pid].estado = EXECUTANDO;
+        console_printf("SO: Processo %d está agora EXECUTANDO\n", proximo_pid);
+    } else {
+        self->processo_atual = PID_NENHUM;
+        console_printf("SO: Nenhum processo PRONTO encontrado para escalonamento\n");
+    }
 }
 
 static int so_despacha(so_t *self)
@@ -230,24 +286,24 @@ static void so_trata_irq(so_t *self, int irq)
 
 static void so_trata_irq_reset(so_t *self)
 {
-  int ender = so_carrega_programa(self, "init.maq");
-  if (ender != 100) {
-    console_printf("SO: problema na carga do programa inicial");
-    self->erro_interno = true;
-    return;
-  }
+    int ender = so_carrega_programa(self, "init.maq");
+    if (ender != 100) {
+        console_printf("SO: problema na carga do programa inicial");
+        self->erro_interno = true;
+        return;
+    }
 
-  // Configura o processo init na tabela de processos
-  self->tabela_processos[0].pid = 0;               // Primeiro processo, com PID 0
-  self->tabela_processos[0].pc = ender;            // Define o PC como o endereço de carga de init
-  self->tabela_processos[0].estado = EXECUTANDO;   // Define o estado como executando
-  self->tabela_processos[0].modo = USUARIO;        // Modo de operação do processo (usuário)
+    // Configura o processo init na tabela de processos
+    self->tabela_processos[0].pid = 0;               // Primeiro processo, com PID 0
+    self->tabela_processos[0].pc = ender;            // Define o PC como o endereço de carga de init
+    self->tabela_processos[0].estado = PRONTO;       // Inicializa como PRONTO, não EXECUTANDO
+    self->tabela_processos[0].modo = USUARIO;        // Modo de operação do processo (usuário)
 
-  // Define o processo init como o processo atual
-  self->processo_atual = 0;
+    // Define o processo init como o processo atual
+    self->processo_atual = 0;
 
-  // Carrega o contexto do processo init para a CPU
-  so_despacha(self);
+    // Carrega o contexto do processo init para a CPU
+    so_despacha(self);
 }
 
 
@@ -283,7 +339,7 @@ static void so_trata_irq_relogio(so_t *self)
   // t1: deveria tratar a interrupção
   //   por exemplo, decrementa o quantum do processo corrente, quando se tem
   //   um escalonador com quantum
-  console_printf("SO: interrupção do relógio (não tratada)");
+  //console_printf("SO: interrupção do relógio (não tratada)");
 }
 
 // foi gerada uma interrupção para a qual o SO não está preparado
