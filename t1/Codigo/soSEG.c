@@ -219,39 +219,38 @@ static void so_trata_pendencias(so_t *self)
 
 static void so_escalona(so_t *self)
 {
-    // Verifica se há um processo corrente, caso contrário, escolhe o primeiro processo pronto
-    if (self->processo_atual == -1) {
+    // Exibe o estado de cada processo antes de escolher o próximo
+    for (int i = 0; i < MAX_PROCESSOS; i++) {
+        if (self->tabela_processos[i].estado != FINALIZADO) {
+            console_printf("SO: Processo %d - Estado: %d - PID Esperado: %d\n", 
+                           self->tabela_processos[i].pid, 
+                           self->tabela_processos[i].estado,
+                           self->tabela_processos[i].pid_esperado);
+        }
+    }
+      console_printf("SO: Processo atual %d\n", self->processo_atual);
+
+    // Se não há processo em execução ou o processo atual não pode continuar, escolha um novo
+    if (self->processo_atual == -1 || self->tabela_processos[self->processo_atual].estado != EXECUTANDO) {
+        // Encontre o primeiro processo PRONTO
         for (int i = 0; i < MAX_PROCESSOS; i++) {
             processo_t *proc = &self->tabela_processos[i];
 
             if (proc->estado == PRONTO) {
-                // Encontra o primeiro processo pronto e o define como o processo corrente
+                // Define este processo como o processo corrente e atualiza seu estado
                 self->processo_atual = proc->pid;
-                proc->estado = EXECUTANDO;  // Atualiza o estado do processo para "executando"
+                proc->estado = EXECUTANDO;
                 console_printf("SO: Processo %d agora está em execução.\n", proc->pid);
-                break;
+                return; // Processo encontrado e escalonado
             }
         }
-    }
-    else {
-        processo_t *proc = &self->tabela_processos[self->processo_atual];
 
-        // Caso o processo corrente não possa continuar, escolhe um novo processo
-        if (proc->estado != EXECUTANDO) {
-            for (int i = 0; i < MAX_PROCESSOS; i++) {
-                processo_t *proc2 = &self->tabela_processos[i];
-
-                if (proc2->estado == PRONTO) {
-                    // Define o próximo processo pronto como o processo corrente
-                    self->processo_atual = proc2->pid;
-                    proc2->estado = EXECUTANDO;
-                    console_printf("SO: Processo %d agora está em execução.\n", proc2->pid);
-                    break;
-                }
-            }
-        }
+        // Se nenhum processo PRONTO foi encontrado, não há processo para executar
+        console_printf("SO: Nenhum processo em execução.\n");
+        self->processo_atual = -1; // Define o processo atual como inválido
     }
 }
+
 
 static int so_despacha(so_t *self)
 {
@@ -510,51 +509,137 @@ static void so_chamada_escr(so_t *self)
   mem_escreve(self->mem, IRQ_END_A, 0);
 }
 
-// implementação da chamada se sistema SO_CRIA_PROC
-// cria um processo
-static void so_chamada_cria_proc(so_t *self)
-{
-  // ainda sem suporte a processos, carrega programa e passa a executar ele
-  // quem chamou o sistema não vai mais ser executado, coitado!
-  // T1: deveria criar um novo processo
-
-  // em X está o endereço onde está o nome do arquivo
-  int ender_proc;
-  // t1: deveria ler o X do descritor do processo criador
-  if (mem_le(self->mem, IRQ_END_X, &ender_proc) == ERR_OK) {
-    char nome[100];
-    if (copia_str_da_mem(100, nome, self->mem, ender_proc)) {
-      int ender_carga = so_carrega_programa(self, nome);
-      if (ender_carga > 0) {
-        // t1: deveria escrever no PC do descritor do processo criado
-        mem_escreve(self->mem, IRQ_END_PC, ender_carga);
-        return;
-      } // else?
+// Encontra um slot livre na tabela de processos e retorna o índice, ou -1 se estiver cheia
+static int so_encontra_slot_livre(so_t *self) {
+    for (int i = 0; i < MAX_PROCESSOS; i++) {
+        if (self->tabela_processos[i].estado == FINALIZADO || self->tabela_processos[i].estado == PARADO) {
+            return i;
+        }
     }
-  }
-  // deveria escrever -1 (se erro) ou o PID do processo criado (se OK) no reg A
-  //   do processo que pediu a criação
-  mem_escreve(self->mem, IRQ_END_A, -1);
+    return -1;
 }
 
-// implementação da chamada se sistema SO_MATA_PROC
-// mata o processo com pid X (ou o processo corrente se X é 0)
-static void so_chamada_mata_proc(so_t *self)
-{
-  // T1: deveria matar um processo
-  // ainda sem suporte a processos, retorna erro -1
-  console_printf("SO: SO_MATA_PROC não implementada");
-  mem_escreve(self->mem, IRQ_END_A, -1);
+// Implementação da chamada de sistema SO_CRIA_PROC para criar um novo processo
+static void so_chamada_cria_proc(so_t *self) {
+    if (self->processo_atual == -1) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Sem processo chamador
+        return;
+    }
+
+    int ender_proc;
+    if (mem_le(self->mem, IRQ_END_X, &ender_proc) != ERR_OK) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Erro ao ler endereço do nome
+        return;
+    }
+
+    char nome[100];
+    if (!copia_str_da_mem(100, nome, self->mem, ender_proc)) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Erro ao copiar o nome
+        return;
+    }
+
+    int ender_carga = so_carrega_programa(self, nome);
+    if (ender_carga < 0) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Erro ao carregar o programa
+        return;
+    }
+
+    int pid_novo = so_encontra_slot_livre(self);
+    if (pid_novo == -1) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Erro: tabela cheia
+        return;
+    }
+
+    // Reutiliza a função so_inicializa_processo para configurar o novo processo
+    so_inicializa_processo(self, pid_novo, ender_carga);
+    mem_escreve(self->mem, IRQ_END_A, pid_novo);  // Retorna o PID do novo processo
+
+    console_printf("SO: Processo %d criado com sucesso. Programa: %s\n", pid_novo, nome);
 }
 
-// implementação da chamada se sistema SO_ESPERA_PROC
-// espera o fim do processo com pid X
-static void so_chamada_espera_proc(so_t *self)
-{
-  // T1: deveria bloquear o processo se for o caso (e desbloquear na morte do esperado)
-  // ainda sem suporte a processos, retorna erro -1
-  console_printf("SO: SO_ESPERA_PROC não implementada");
-  mem_escreve(self->mem, IRQ_END_A, -1);
+// Implementação da chamada de sistema SO_MATA_PROC para encerrar um processo com o PID em X ou o processo corrente
+static void so_chamada_mata_proc(so_t *self) {
+    if (self->processo_atual == -1) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Sem processo chamador
+        return;
+    }
+
+    int pid_para_matar;
+    if (mem_le(self->mem, IRQ_END_X, &pid_para_matar) != ERR_OK) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Erro ao ler PID
+        return;
+    }
+
+    // Define o PID do processo a ser encerrado
+    if (pid_para_matar == 0) {
+        pid_para_matar = self->processo_atual;
+    }
+
+    // Verifica se o PID é válido e o processo não está finalizado
+    if (pid_para_matar < 0 || pid_para_matar >= MAX_PROCESSOS || 
+        self->tabela_processos[pid_para_matar].estado == FINALIZADO) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // PID inválido ou processo já finalizado
+        return;
+    }
+
+    // Finaliza o processo e marca o estado como FINALIZADO
+    self->tabela_processos[pid_para_matar].estado = FINALIZADO;
+    console_printf("SO: Processo %d finalizado\n", pid_para_matar);
+
+    // Se o processo corrente foi finalizado, desativa-o como processo atual
+    if (pid_para_matar == self->processo_atual) {
+        self->processo_atual = -1;
+    }
+
+    // Desbloqueia todos os processos esperando pelo término do processo finalizado
+    for (int i = 0; i < MAX_PROCESSOS; i++) {
+        if (self->tabela_processos[i].estado == BLOQUEADO &&
+            self->tabela_processos[i].pid_esperado == pid_para_matar) {
+            self->tabela_processos[i].estado = PRONTO;
+            console_printf("SO: Processo %d desbloqueado (esperava o fim do processo %d)\n", 
+                           self->tabela_processos[i].pid, pid_para_matar);
+        }
+    }
+
+    // Define o retorno como 0, indicando sucesso
+    mem_escreve(self->mem, IRQ_END_A, 0);
+}
+
+// Implementação da chamada de sistema SO_ESPERA_PROC para esperar o fim de um processo específico
+static void so_chamada_espera_proc(so_t *self) {
+    if (self->processo_atual == -1) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Sem processo chamador
+        return;
+    }
+
+    int pid_esperado;
+    if (mem_le(self->mem, IRQ_END_X, &pid_esperado) != ERR_OK) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // Erro ao ler PID esperado
+        return;
+    }
+
+    // Verifica se o PID esperado é válido
+    if (pid_esperado < 0 || pid_esperado >= MAX_PROCESSOS || 
+        self->tabela_processos[pid_esperado].estado == FINALIZADO) {
+        mem_escreve(self->mem, IRQ_END_A, -1);  // PID inválido ou processo já finalizado
+        return;
+    }
+
+    // Se o processo esperado está ainda ativo, bloqueia o processo atual
+    if (self->tabela_processos[pid_esperado].estado != FINALIZADO) {
+        processo_t *proc_atual = &self->tabela_processos[self->processo_atual];
+        proc_atual->estado = BLOQUEADO;
+        proc_atual->pid_esperado = pid_esperado;
+
+        console_printf("SO: Processo %d bloqueado esperando o fim do processo %d\n", 
+                        proc_atual->pid, pid_esperado);
+
+        // Define o retorno de erro (por estar bloqueado) no registrador A
+        mem_escreve(self->mem, IRQ_END_A, -1);
+    } else {
+        // Caso o processo já tenha terminado, retorna sucesso no registrador A
+        mem_escreve(self->mem, IRQ_END_A, 0);
+    }
 }
 
 // CARGA DE PROGRAMA {{{1
