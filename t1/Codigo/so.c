@@ -194,14 +194,29 @@ static void so_salva_estado_da_cpu(so_t *self)
 
 static void so_trata_pendencias(so_t *self)
 {
-  //Desbloqueio de processos
+  bool processos_ativos = false;
+
+  // Verificar se ainda há processos prontos ou executando
   for (int i = 0; i < MAX_PROCESSOS; i++) {
     processo_t *proc = &self->tabela_processos[i];
     
-    // Se o processo está bloqueado e o PID esperado foi atendido (bloqueio resolvido)
-    if (proc->estado == BLOQUEADO && proc->pid_esperado == self->pid_processo_atual) {
-      proc->estado = PRONTO;  // Desbloqueia o processo e coloca como PRONTO
-      console_printf("SO: Processo %d desbloqueado\n", proc->pid);
+    // Se encontrar algum processo PRONTO ou EXECUTANDO, há processos ativos
+    if (proc->estado == PRONTO || proc->estado == EXECUTANDO) {
+      processos_ativos = true;
+      break;
+    }
+  }
+
+  // Se não há processos ativos, pode desbloquear os processos em espera
+  if (!processos_ativos) {
+    for (int i = 0; i < MAX_PROCESSOS; i++) {
+      processo_t *proc = &self->tabela_processos[i];
+      
+      // Se o processo está bloqueado e o PID esperado foi atendido (bloqueio resolvido)
+      if (proc->estado == BLOQUEADO) {
+        proc->estado = PRONTO;  // Desbloqueia o processo e coloca como PRONTO
+        console_printf("SO: Processo %d desbloqueado\n", proc->pid);
+      }
     }
   }
 }
@@ -211,12 +226,12 @@ static void so_escalona(so_t *self)
     console_printf("SO: Debug da tabela de processos:\n");
     for (int i = 0; i < MAX_PROCESSOS; i++) {
         processo_t *proc = &self->tabela_processos[i];
-        console_printf("PID: %d, Estado: %d, PC: %d, A: %d, X: %d, Modo: %d\n", 
-                       proc->pid, proc->estado, proc->pc, proc->a, proc->x, proc->modo);
+        console_printf("PID: %d, Estado: %d, PC: %d, A: %d, X: %d, Modo: %d PID Esperado %d\n", 
+                       proc->pid, proc->estado, proc->pc, proc->a, proc->x, proc->modo, proc->pid_esperado);
     }
 
     // Verifica se o processo corrente não pode continuar (não existe ou está finalizado)
-    if (self->index_processo_atual == -1 || self->tabela_processos[self->index_processo_atual].estado == FINALIZADO) {
+    if (self->index_processo_atual == -1 || self->tabela_processos[self->index_processo_atual].estado == FINALIZADO || self->tabela_processos[self->index_processo_atual].estado == BLOQUEADO) {
         // Se não há processo corrente ou o processo atual terminou, procuramos um novo processo pronto na tabela
         for (int i = 0; i < MAX_PROCESSOS; i++) {
             processo_t *proc = &self->tabela_processos[i];
