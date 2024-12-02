@@ -1,0 +1,48 @@
+------------------- Metricas do SO ------------------- 
+Processos criados: 4
+Tempo total de execucao : 23547
+Tempo total ocioso : 37876
+Numero de preempcoes totais : 166
+Numero de interrupcoes totais do tipo IRQ_RESET: 1
+Numero de interrupcoes totais do tipo IRQ_ERR_CPU: 0
+Numero de interrupcoes totais do tipo IRQ_SISTEMA: 462
+Numero de interrupcoes totais do tipo IRQ_RELOGIO: 556
+Numero de interrupcoes totais do tipo IRQ_TECLADO: 0
+Numero de interrupcoes totais do tipo IRQ_TELA: 0
+--------------- Metricas dos Processos --------------- 
+Processo PID: 1000
+  Vezes executando: 4
+  Vezes pronto: 3
+  Vezes bloqueado: 3
+  Tempo executando: 743
+  Tempo pronto: 0
+  Tempo bloqueado: 27135
+  Tempo retorno: 27878
+  Numero de preempcoes: 3
+Processo PID: 1001
+  Vezes executando: 6
+  Vezes pronto: 6
+  Vezes bloqueado: 5
+  Tempo executando: 9150
+  Tempo pronto: 1841
+  Tempo bloqueado: 324
+  Tempo retorno: 11315
+  Numero de preempcoes: 6
+Processo PID: 1002
+  Vezes executando: 21
+  Vezes pronto: 21
+  Vezes bloqueado: 20
+  Tempo executando: 7643
+  Tempo pronto: 6760
+  Tempo bloqueado: 1385
+  Tempo retorno: 15788
+  Numero de preempcoes: 24
+Processo PID: 1003
+  Vezes executando: 132
+  Vezes pronto: 132
+  Vezes bloqueado: 131
+  Tempo executando: 6011
+  Tempo pronto: 12117
+  Tempo bloqueado: 9032
+  Tempo retorno: 27160
+  Numero de preempcoes: 133

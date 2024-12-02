@@ -154,4 +154,3 @@ ei_num  espaco 1
 ei_mul  espaco 1
 a_zero  valor '0'
 dez     valor 10
-
