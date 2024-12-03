@@ -46,6 +46,23 @@ int proc_get_dispositivo_saida(const processo_t *proc) {
     return proc->dispositivo_saida;
 }
 
+int proc_get_dispositivo_saida_ok(const processo_t *proc) {
+    return proc->dispositivo_saida + 1;
+}
+
+// dispositivo_entrada
+void proc_set_dispositivo_entrada(processo_t *proc, int dispositivo_entrada) {
+    proc->dispositivo_entrada = dispositivo_entrada - 2;
+}
+
+int proc_get_dispositivo_entrada(const processo_t *proc) {
+    return proc->dispositivo_entrada;
+}
+
+int proc_get_dispositivo_entrada_ok(const processo_t *proc) {
+    return proc->dispositivo_entrada + 1;
+}
+
 // pid_esperado
 void proc_set_pid_esperado(processo_t *proc, int pid) {
     proc->pid_esperado = pid;
@@ -67,6 +84,40 @@ double proc_get_prioridade(const processo_t *proc) {
 // motivo_bloqueio
 void proc_set_motivo_bloqueio(processo_t *proc, motivo_bloqueio_t motivo) {
     proc->motivo_bloqueio = motivo;
+}
+
+// Setters para as métricas
+void proc_set_tempo_pronto(processo_t *proc, int tempo) {
+    proc->metricas.tempo_pronto = tempo;
+}
+
+void proc_set_tempo_executando(processo_t *proc, int tempo) {
+    proc->metricas.tempo_executando = tempo;
+}
+
+void proc_set_tempo_bloqueado(processo_t *proc, int tempo) {
+    proc->metricas.tempo_bloqueado = tempo;
+}
+
+void proc_set_preempcoes(processo_t *proc, int preempcoes) {
+    proc->metricas.preempcoes = preempcoes;
+}
+
+// Getters para as métricas
+int proc_get_tempo_pronto(const processo_t *proc) {
+    return proc->metricas.tempo_pronto;
+}
+
+int proc_get_tempo_executando(const processo_t *proc) {
+    return proc->metricas.tempo_executando;
+}
+
+int proc_get_tempo_bloqueado(const processo_t *proc) {
+    return proc->metricas.tempo_bloqueado;
+}
+
+int proc_get_preempcoes(const processo_t *proc) {
+    return proc->metricas.preempcoes;
 }
 
 motivo_bloqueio_t proc_get_motivo_bloqueio(const processo_t *proc) {
@@ -109,4 +160,26 @@ void proc_set_modo(processo_t *proc, modo_processo_t modo) {
 
 modo_processo_t proc_get_modo(const processo_t *proc) {
     return proc->modo;
+}
+
+// Funções para acessar as métricas faltantes
+
+int proc_get_tempo_total(const processo_t *proc) {
+    return proc->metricas.tempo_total;
+}
+
+float proc_get_tempo_medio_de_resposta(const processo_t *proc) {
+    return proc->metricas.tempo_medio_de_resposta;
+}
+
+int proc_get_vezes_executando(const processo_t *proc) {
+    return proc->metricas.vezes_executando;
+}
+
+int proc_get_vezes_pronto(const processo_t *proc) {
+    return proc->metricas.vezes_pronto;
+}
+
+int proc_get_vezes_bloqueado(const processo_t *proc) {
+    return proc->metricas.vezes_bloqueado;
 }

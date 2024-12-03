@@ -42,6 +42,7 @@ typedef struct {
     int a;
     int x;
     int dispositivo_saida;
+    int dispositivo_entrada;
     int pid_esperado;
     double prioridade;
     proc_metricas_t metricas;
@@ -72,9 +73,16 @@ int proc_get_x(const processo_t *proc);
 void proc_set_dispositivo_saida(processo_t *proc, int dispositivo_saida);
 int proc_get_dispositivo_saida(const processo_t *proc);
 
+// dispositivo_entrada
+void proc_set_dispositivo_entrada(processo_t *proc, int dispositivo_entrada);
+int proc_get_dispositivo_entrada(const processo_t *proc);
+
 // pid_esperado
 void proc_set_pid_esperado(processo_t *proc, int pid);
 int proc_get_pid_esperado(const processo_t *proc);
+
+int proc_get_dispositivo_saida_ok(const processo_t *proc);
+int proc_get_dispositivo_entrada_ok(const processo_t *proc);
 
 // prioridade
 void proc_set_prioridade(processo_t *proc, double prioridade);
@@ -91,5 +99,25 @@ estado_processo_t proc_get_estado(const processo_t *proc);
 // modo
 void proc_set_modo(processo_t *proc, modo_processo_t modo);
 modo_processo_t proc_get_modo(const processo_t *proc);
+
+void proc_set_tempo_pronto(processo_t *proc, int tempo);
+int proc_get_tempo_pronto(const processo_t *proc);
+
+void proc_set_tempo_executando(processo_t *proc, int tempo);
+int proc_get_tempo_executando(const processo_t *proc);
+
+void proc_set_tempo_bloqueado(processo_t *proc, int tempo);
+int proc_get_tempo_bloqueado(const processo_t *proc);
+
+void proc_set_preempcoes(processo_t *proc, int preempcoes);
+int proc_get_preempcoes(const processo_t *proc);
+
+// Funções para acessar as métricas
+int proc_get_tempo_total(const processo_t *proc);
+float proc_get_tempo_medio_de_resposta(const processo_t *proc);
+int proc_get_vezes_executando(const processo_t *proc);
+int proc_get_vezes_pronto(const processo_t *proc);
+int proc_get_vezes_bloqueado(const processo_t *proc);
+
 
 #endif // PROCESSO_H

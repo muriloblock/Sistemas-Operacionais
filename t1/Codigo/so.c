@@ -21,9 +21,9 @@
 #define PID_NENHUM            -1
 
 typedef enum {
-    ESCALONADOR_NORMAL,
-    ESCALONADOR_CIRCULAR,
-    ESCALONADOR_ROUND_ROBIN
+  ESCALONADOR_NORMAL,
+  ESCALONADOR_CIRCULAR,
+  ESCALONADOR_ROUND_ROBIN
 } escalonador_t;
 
 typedef struct no {
@@ -33,8 +33,8 @@ typedef struct no {
 } no_t;
 
 typedef struct {
-    no_t *inicio;
-    no_t *fim;
+  no_t *inicio;
+  no_t *fim;
 } fila_t;
 
 struct so_t {
@@ -194,7 +194,7 @@ so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console) {
   self->tempo_execucao = 0; //metricas
   self->tempo_ocioso = 0;
   self->preempcoes_totais = 0;
-  self->escalonador = ESCALONADOR_CIRCULAR;
+  self->escalonador = ESCALONADOR_ROUND_ROBIN;
   self->interrupcoes = (int *)malloc(6 * sizeof(int));
 
   self->fila_processos = cira_fila();
@@ -226,69 +226,69 @@ static void so_escalona(so_t *self);
 static int so_despacha(so_t *self);
 
 void so_imprime_metricas(so_t *self) {
-	const char *nome_arquivo = "metricas_processos.txt";
+    const char *nome_arquivo = "metricas_processos.txt";
 
-	FILE *arquivo = fopen(nome_arquivo, "w");
-	if (arquivo == NULL) {
-		console_printf("Erro ao abrir o arquivo '%s' para escrita.\n", nome_arquivo);
-		return;
-	}
+    FILE *arquivo = fopen(nome_arquivo, "w");
+    if (arquivo == NULL) {
+        console_printf("Erro ao abrir o arquivo '%s' para escrita.\n", nome_arquivo);
+        return;
+    }
 
-	fprintf(arquivo, "============================== MÉTRICAS DO SISTEMA ===============================\n\n");
+    fprintf(arquivo, "============================== MÉTRICAS DO SISTEMA ===============================\n\n");
 
-	fprintf(arquivo, "GERAL:\n");
-	fprintf(arquivo, "  Processos criados          : %d\n", self->quantidade_processos);
-	fprintf(arquivo, "  Tempo total de execução    : %d\n", self->tempo_execucao);
-	fprintf(arquivo, "  Tempo total ocioso         : %d\n", self->tempo_ocioso);
-	fprintf(arquivo, "  Número de preempções       : %d\n", self->preempcoes_totais);
-	fprintf(arquivo, "\nINTERRUPÇÕES:\n");
-	fprintf(arquivo, "  IRQ_RESET                  : %d\n", self->interrupcoes[IRQ_RESET]);
-	fprintf(arquivo, "  IRQ_ERR_CPU                : %d\n", self->interrupcoes[IRQ_ERR_CPU]);
-	fprintf(arquivo, "  IRQ_SISTEMA                : %d\n", self->interrupcoes[IRQ_SISTEMA]);
-	fprintf(arquivo, "  IRQ_RELOGIO                : %d\n", self->interrupcoes[IRQ_RELOGIO]);
-	fprintf(arquivo, "  IRQ_TECLADO                : %d\n", self->interrupcoes[IRQ_TECLADO]);
-	fprintf(arquivo, "  IRQ_TELA                   : %d\n", self->interrupcoes[IRQ_TELA]);
+    fprintf(arquivo, "GERAL:\n");
+    fprintf(arquivo, "  Processos criados          : %d\n", self->quantidade_processos);
+    fprintf(arquivo, "  Tempo total de execução    : %d\n", self->tempo_execucao);
+    fprintf(arquivo, "  Tempo total ocioso         : %d\n", self->tempo_ocioso);
+    fprintf(arquivo, "  Número de preempções       : %d\n", self->preempcoes_totais);
+    fprintf(arquivo, "\nINTERRUPÇÕES:\n");
+    fprintf(arquivo, "  IRQ_RESET                  : %d\n", self->interrupcoes[IRQ_RESET]);
+    fprintf(arquivo, "  IRQ_ERR_CPU                : %d\n", self->interrupcoes[IRQ_ERR_CPU]);
+    fprintf(arquivo, "  IRQ_SISTEMA                : %d\n", self->interrupcoes[IRQ_SISTEMA]);
+    fprintf(arquivo, "  IRQ_RELOGIO                : %d\n", self->interrupcoes[IRQ_RELOGIO]);
+    fprintf(arquivo, "  IRQ_TECLADO                : %d\n", self->interrupcoes[IRQ_TECLADO]);
+    fprintf(arquivo, "  IRQ_TELA                   : %d\n", self->interrupcoes[IRQ_TELA]);
 
-	fprintf(arquivo, "\n============================ MÉTRICAS DOS PROCESSOS ============================\n\n");
+    fprintf(arquivo, "\n============================ MÉTRICAS DOS PROCESSOS ============================\n\n");
 
-	// Tabela de tempos
-	fprintf(arquivo, "------------- TABELA DE TEMPOS -------------\n");
-	fprintf(arquivo, "| PID | Tempo Exec. | Tempo Pronto | Tempo Bloq. | Tempo Retorno | Resp. Médio |\n");
-	fprintf(arquivo, "|-----|-------------|--------------|-------------|---------------|-------------|\n");
+    // Tabela de tempos
+    fprintf(arquivo, "------------- TABELA DE TEMPOS -------------\n");
+    fprintf(arquivo, "| PID | Tempo Exec. | Tempo Pronto | Tempo Bloq. | Tempo Retorno | Resp. Médio |\n");
+    fprintf(arquivo, "|-----|-------------|--------------|-------------|---------------|-------------|\n");
 
-	for (int i = 0; i < self->quantidade_processos; i++) {
-		processo_t *proc = &self->tabela_processos[i];
-		fprintf(arquivo,
-			"| %-3d | %-11d | %-12d | %-11d | %-13d | %-11.2f |\n",
-			proc->pid,
-			proc->metricas.tempo_executando,
-			proc->metricas.tempo_pronto,
-			proc->metricas.tempo_bloqueado,
-			proc->metricas.tempo_total,
-			proc->metricas.tempo_medio_de_resposta);
-	}
+    for (int i = 0; i < self->quantidade_processos; i++) {
+        processo_t *proc = &self->tabela_processos[i];
+        fprintf(arquivo,
+            "| %-3d | %-11d | %-12d | %-11d | %-13d | %-11.2f |\n",
+            proc_get_pid(proc),
+            proc_get_tempo_executando(proc),
+            proc_get_tempo_pronto(proc),
+            proc_get_tempo_bloqueado(proc),
+            proc_get_tempo_total(proc),
+            proc_get_tempo_medio_de_resposta(proc));
+    }
 
-	fprintf(arquivo, "\n------------- TABELA DE VEZES -------------\n");
-	fprintf(arquivo, "| PID | Execuções | Preempções | Vezes Pronto | Vezes Bloq. |\n");
-	fprintf(arquivo, "|-----|-----------|------------|--------------|-------------|\n");
+    fprintf(arquivo, "\n------------- TABELA DE VEZES -------------\n");
+    fprintf(arquivo, "| PID | Execuções | Preempções | Vezes Pronto | Vezes Bloq. |\n");
+    fprintf(arquivo, "|-----|-----------|------------|--------------|-------------|\n");
 
-	// Tabela de vezes
-	for (int i = 0; i < self->quantidade_processos; i++) {
-		processo_t *proc = &self->tabela_processos[i];
-		fprintf(arquivo,
-			"| %-3d | %-9d | %-10d | %-12d | %-11d |\n",
-			proc->pid,
-			proc->metricas.vezes_executando,
-			proc->metricas.preempcoes,
-			proc->metricas.vezes_pronto,
-			proc->metricas.vezes_bloqueado);
-	}
+    // Tabela de vezes
+    for (int i = 0; i < self->quantidade_processos; i++) {
+        processo_t *proc = &self->tabela_processos[i];
+        fprintf(arquivo,
+            "| %-3d | %-9d | %-10d | %-12d | %-11d |\n",
+            proc_get_pid(proc),
+            proc_get_vezes_executando(proc),
+            proc_get_preempcoes(proc),
+            proc_get_vezes_pronto(proc),
+            proc_get_vezes_bloqueado(proc));
+    }
 
-	fprintf(arquivo, "\n================================================================================\n");
+    fprintf(arquivo, "\n================================================================================\n");
 
-	fclose(arquivo);
+    fclose(arquivo);
 
-	console_printf("Métricas salvas no arquivo '%s'.\n", nome_arquivo);
+    console_printf("Métricas salvas no arquivo '%s'.\n", nome_arquivo);
 }
 
 static bool so_tem_trabalho(so_t *self)
@@ -424,7 +424,7 @@ static void so_salva_estado_da_cpu(so_t *self) {
 // Função para tratar bloqueio por escrita
 static void trata_bloqueio_escrita(so_t *self, processo_t *proc) {
   int estado;
-  es_le(self->es, proc_get_dispositivo_saida(proc) + 1, &estado);
+  es_le(self->es, proc_get_dispositivo_saida_ok(proc), &estado);
   if (estado != 0) {
     es_escreve(self->es, proc_get_dispositivo_saida(proc), proc_get_x(proc));
     proc_set_estado(proc, PRONTO);
@@ -433,11 +433,19 @@ static void trata_bloqueio_escrita(so_t *self, processo_t *proc) {
   }
 }
 
-
 // Função para tratar bloqueio por leitura
 static void trata_bloqueio_leitura(so_t *self, processo_t *proc) {
-    // Implementação futura ou deixada vazia para o momento
+  int estado;
+  es_le(self->es, proc_get_dispositivo_entrada_ok(proc), &estado);
+  if (estado != 0) {
+    int dado;
+    es_le(self->es, proc_get_dispositivo_entrada(proc), &dado);
+    proc_set_a(proc, dado);
+    proc_set_estado(proc, PRONTO);
+    fila_insere(self->fila_processos, proc);
+  }
 }
+
 
 // Função para tratar bloqueio por espera
 static void trata_bloqueio_espera(so_t *self, processo_t *proc) {
@@ -491,9 +499,6 @@ static void calcula_prioridade(so_t *self, processo_t *processo) {
     double prioridade = (processo->prioridade + (t_exec / INTERVALO_QUANTUM)) / 2;
     processo->prioridade = prioridade;
 }
-
-//necessita_escalonar
-#include <stdio.h>
 
 void fila_imprime(fila_t *self) {
 
@@ -689,6 +694,48 @@ static void so_trata_irq(so_t *self, int irq)
   }
 }
 
+// Função para configurar o novo processo
+static void configura_novo_processo(processo_t *novo_proc, int pid, int ender_carga) {
+  proc_set_pid(novo_proc, pid);
+  proc_set_pc(novo_proc, ender_carga);
+  proc_set_a(novo_proc, 0);
+  proc_set_x(novo_proc, 0);
+  proc_set_estado(novo_proc, PRONTO);
+  proc_set_modo(novo_proc, USUARIO);
+  proc_set_pid_esperado(novo_proc, 0);
+  proc_set_prioridade(novo_proc, 0.5);
+
+  // Inicializa as métricas utilizando os setters
+  proc_set_tempo_pronto(novo_proc, 0);
+  proc_set_tempo_executando(novo_proc, 0);
+  proc_set_tempo_bloqueado(novo_proc, 0);
+  proc_set_preempcoes(novo_proc, 0);
+}
+
+// Função para definir o dispositivo de saída com base no PID
+static void define_dispositivos(processo_t *novo_proc) {
+	switch (proc_get_pid(novo_proc) % 4) {
+		case 0:
+			proc_set_dispositivo_saida(novo_proc, D_TERM_A_TELA);
+      proc_set_dispositivo_entrada(novo_proc, D_TERM_A_TECLADO);
+			break;
+		case 1:
+			proc_set_dispositivo_saida(novo_proc, D_TERM_B_TELA);
+      proc_set_dispositivo_entrada(novo_proc, D_TERM_B_TECLADO);
+
+			break;
+		case 2:
+			proc_set_dispositivo_saida(novo_proc, D_TERM_C_TELA);
+      proc_set_dispositivo_entrada(novo_proc, D_TERM_C_TECLADO);
+
+			break;
+		case 3:
+			proc_set_dispositivo_saida(novo_proc, D_TERM_D_TELA);
+      proc_set_dispositivo_entrada(novo_proc, D_TERM_D_TECLADO);
+			break;
+	}
+}
+
 // Interrupção gerada uma única vez, quando a CPU inicializa
 static void so_trata_irq_reset(so_t *self) {
   self->quantidade_processos++;
@@ -701,39 +748,12 @@ static void so_trata_irq_reset(so_t *self) {
     return;
   }
 
-  // Configura o processo init
-  proc_set_pid(init_proc, self->contador_pid++);
-  proc_set_pc(init_proc, ender);            // PC aponta para o início do programa init
-  proc_set_a(init_proc, 0);                 // Registrador A inicializado com 0
-  proc_set_x(init_proc, 0);                 // Registrador X inicializado com 0
-  proc_set_estado(init_proc, EXECUTANDO);  // Primeiro processo começa como EXECUTANDO
-  proc_set_modo(init_proc, USUARIO);       // Processo inicia em modo usuário
-  proc_set_prioridade(init_proc, 0.5);     // Prioridade inicial do processo
+  configura_novo_processo(init_proc, self->contador_pid++, ender);
+  
+  define_dispositivos(init_proc);
 
-  // Configura o dispositivo de saída baseado no PID
-  switch (proc_get_pid(init_proc) % 4) {
-    case 0:
-      proc_set_dispositivo_saida(init_proc, D_TERM_A_TELA);
-      break;
-    case 1:
-      proc_set_dispositivo_saida(init_proc, D_TERM_B_TELA);
-      break;
-    case 2:
-      proc_set_dispositivo_saida(init_proc, D_TERM_C_TELA);
-      break;
-    case 3:
-      proc_set_dispositivo_saida(init_proc, D_TERM_D_TELA);
-      break;
-  }
+  fila_insere(self->fila_processos,init_proc);
 
-  // Mensagem de depuração
-  console_printf("SO: Processo init (PID=%d) carregado no PC=%d\n", 
-                 proc_get_pid(init_proc), proc_get_pc(init_proc));
-
-  // Insere o processo na fila de processos
-  fila_insere(self->fila_processos, init_proc);
-
-  // Define o processo corrente
   self->processo_corrente = init_proc;
 }
 
@@ -830,52 +850,28 @@ static void bloqueia_processo(so_t *self, motivo_bloqueio_t MOTIVO)
   }
 }
 
-// implementação da chamada se sistema SO_LE
-// faz a leitura de um dado da entrada corrente do processo, coloca o dado no reg A
+// Implementação da chamada de sistema SO_LE
+// Faz a leitura de um dado da entrada corrente do processo, coloca o dado no reg A
 static void so_chamada_le(so_t *self)
 {
-  // implementação com espera ocupada
-  //   T1: deveria realizar a leitura somente se a entrada estiver disponível,
-  //     senão, deveria bloquear o processo.
-  //   no caso de bloqueio do processo, a leitura (e desbloqueio) deverá
-  //     ser feita mais tarde, em tratamentos pendentes em outra interrupção,
-  //     ou diretamente em uma interrupção específica do dispositivo, se for
-  //     o caso
-  // implementação lendo direto do terminal A
-  //   T1: deveria usar dispositivo de entrada corrente do processo
-  for (;;) {
-    int estado;
-    if (es_le(self->es, D_TERM_A_TECLADO_OK, &estado) != ERR_OK) {
-      console_printf("SO: problema no acesso ao estado do teclado");
-      self->erro_interno = true;
-      return;
-    }
-    if (estado != 0) break;
-    // como não está saindo do SO, a unidade de controle não está executando seu laço.
-    // esta gambiarra faz pelo menos a console ser atualizada
-    // T1: com a implementação de bloqueio de processo, esta gambiarra não
-    //   deve mais existir.
-    console_tictac(self->console);
+  int estado;
+  es_le(self->es, proc_get_dispositivo_entrada(self->processo_corrente), &estado);
+
+  if (estado != 0) {
+    int dado;
+    es_le(self->es, proc_get_dispositivo_entrada(self->processo_corrente) + 1, &dado);
+    mem_escreve(self->mem, IRQ_END_A, dado);
+  } else {
+    bloqueia_processo(self, LEITURA);
   }
-  int dado;
-  if (es_le(self->es, D_TERM_A_TECLADO, &dado) != ERR_OK) {
-    console_printf("SO: problema no acesso ao teclado");
-    self->erro_interno = true;
-    return;
-  }
-  // escreve no reg A do processador
-  // (na verdade, na posição onde o processador vai pegar o A quando retornar da int)
-  // T1: se houvesse processo, deveria escrever no reg A do processo
-  // T1: o acesso só deve ser feito nesse momento se for possível; se não, o processo
-  //   é bloqueado, e o acesso só deve ser feito mais tarde (e o processo desbloqueado)
-  mem_escreve(self->mem, IRQ_END_A, dado);
 }
+
 
 // Implementação da chamada de sistema SO_ESCR
 // Escreve o valor do registrador X na saída corrente do processo
 static void so_chamada_escr(so_t *self) {
   int estado;
-  es_le(self->es, proc_get_dispositivo_saida(self->processo_corrente) + 1, &estado);
+  es_le(self->es, proc_get_dispositivo_saida_ok(self->processo_corrente), &estado);
 
   if (estado != 0) {
     es_escreve(self->es, proc_get_dispositivo_saida(self->processo_corrente), proc_get_x(self->processo_corrente));
@@ -901,45 +897,10 @@ static int encontra_indice_livre(so_t *self) {
   return -1;  // Retorna -1 se não houver espaço livre
 }
 
-// Função para configurar o novo processo
-static void configura_novo_processo(processo_t *novo_proc, int pid, int ender_carga) {
-	proc_set_pid(novo_proc, pid);
-	proc_set_pc(novo_proc, ender_carga);
-	proc_set_a(novo_proc, 0);
-	proc_set_x(novo_proc, 0);
-	proc_set_estado(novo_proc, PRONTO);
-	proc_set_modo(novo_proc, USUARIO);
-	proc_set_pid_esperado(novo_proc, 0);
-	proc_set_prioridade(novo_proc, 0.5);
-
-  novo_proc->metricas.tempo_pronto = 0;
-  novo_proc->metricas.tempo_executando = 0;
-  novo_proc->metricas.tempo_bloqueado = 0;
-  novo_proc->metricas.preempcoes = 0;
-}
-
-// Função para definir o dispositivo de saída com base no PID
-static void define_dispositivo_saida(processo_t *novo_proc) {
-	switch (proc_get_pid(novo_proc) % 4) {
-		case 0:
-			proc_set_dispositivo_saida(novo_proc, D_TERM_A_TELA);
-			break;
-		case 1:
-			proc_set_dispositivo_saida(novo_proc, D_TERM_B_TELA);
-			break;
-		case 2:
-			proc_set_dispositivo_saida(novo_proc, D_TERM_C_TELA);
-			break;
-		case 3:
-			proc_set_dispositivo_saida(novo_proc, D_TERM_D_TELA);
-			break;
-	}
-}
-
-
 // Função principal da chamada de sistema SO_CRIA_PROC
 static void so_chamada_cria_proc(so_t *self) {
   self->quantidade_processos++;
+
   char nome[100];
   le_nome_do_processso(self, self->processo_corrente->x, nome);  // Lê o nome do processo
 
@@ -957,7 +918,7 @@ static void so_chamada_cria_proc(so_t *self) {
   configura_novo_processo(novo_proc, self->contador_pid++, ender_carga);
   
   // Define o dispositivo de saída
-  define_dispositivo_saida(novo_proc);
+  define_dispositivos(novo_proc);
 
   fila_insere(self->fila_processos,novo_proc);
 
