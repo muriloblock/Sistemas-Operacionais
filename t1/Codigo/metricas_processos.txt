@@ -1,48 +1,35 @@
-------------------- Metricas do SO ------------------- 
-Processos criados: 4
-Tempo total de execucao : 23547
-Tempo total ocioso : 37876
-Numero de preempcoes totais : 166
-Numero de interrupcoes totais do tipo IRQ_RESET: 1
-Numero de interrupcoes totais do tipo IRQ_ERR_CPU: 0
-Numero de interrupcoes totais do tipo IRQ_SISTEMA: 462
-Numero de interrupcoes totais do tipo IRQ_RELOGIO: 556
-Numero de interrupcoes totais do tipo IRQ_TECLADO: 0
-Numero de interrupcoes totais do tipo IRQ_TELA: 0
---------------- Metricas dos Processos --------------- 
-Processo PID: 1000
-  Vezes executando: 4
-  Vezes pronto: 3
-  Vezes bloqueado: 3
-  Tempo executando: 743
-  Tempo pronto: 0
-  Tempo bloqueado: 27135
-  Tempo retorno: 27878
-  Numero de preempcoes: 3
-Processo PID: 1001
-  Vezes executando: 6
-  Vezes pronto: 6
-  Vezes bloqueado: 5
-  Tempo executando: 9150
-  Tempo pronto: 1841
-  Tempo bloqueado: 324
-  Tempo retorno: 11315
-  Numero de preempcoes: 6
-Processo PID: 1002
-  Vezes executando: 21
-  Vezes pronto: 21
-  Vezes bloqueado: 20
-  Tempo executando: 7643
-  Tempo pronto: 6760
-  Tempo bloqueado: 1385
-  Tempo retorno: 15788
-  Numero de preempcoes: 24
-Processo PID: 1003
-  Vezes executando: 132
-  Vezes pronto: 132
-  Vezes bloqueado: 131
-  Tempo executando: 6011
-  Tempo pronto: 12117
-  Tempo bloqueado: 9032
-  Tempo retorno: 27160
-  Numero de preempcoes: 133
+============================== MÉTRICAS DO SISTEMA ===============================
+
+GERAL:
+  Processos criados          : 4
+  Tempo total de execução    : 34969
+  Tempo total ocioso         : 34854
+  Número de preempções       : 29
+
+INTERRUPÇÕES:
+  IRQ_RESET                  : 1
+  IRQ_ERR_CPU                : 0
+  IRQ_SISTEMA                : 462
+  IRQ_RELOGIO                : 522
+  IRQ_TECLADO                : 0
+  IRQ_TELA                   : 0
+
+============================ MÉTRICAS DOS PROCESSOS ============================
+
+------------- TABELA DE TEMPOS -------------
+| PID | Tempo Exec. | Tempo Pronto | Tempo Bloq. | Tempo Retorno | Resp. Médio |
+|-----|-------------|--------------|-------------|---------------|-------------|
+| 0   | 746         | 40           | 25413       | 26199         | 13.33       |
+| 1   | 13552       | 566          | 443         | 14561         | 80.86       |
+| 2   | 14923       | 432          | 1134        | 16489         | 25.41       |
+| 3   | 5748        | 11869        | 7864        | 25481         | 98.91       |
+
+------------- TABELA DE VEZES -------------
+| PID | Execuções | Preempções | Vezes Pronto | Vezes Bloq. |
+|-----|-----------|------------|--------------|-------------|
+| 0   | 4         | 2          | 3            | 3           |
+| 1   | 7         | 12         | 7            | 6           |
+| 2   | 17        | 15         | 17           | 16          |
+| 3   | 120       | 0          | 120          | 119         |
+
+================================================================================

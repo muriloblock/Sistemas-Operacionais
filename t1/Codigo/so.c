@@ -20,17 +20,21 @@
 #define MAX_PROCESSOS         10
 #define PID_NENHUM            -1
 
-// Estrutura de um nó na fila
+typedef enum {
+    ESCALONADOR_NORMAL,
+    ESCALONADOR_CIRCULAR,
+    ESCALONADOR_ROUND_ROBIN
+} escalonador_t;
+
 typedef struct no {
-    processo_t *processo;       // Ponteiro para o processo
-    struct no *proximo;        // Ponteiro para o próximo nó
-    struct no *anterior;
+  processo_t *processo;
+  struct no *proximo;
+  struct no *anterior;
 } no_t;
 
-// Estrutura da fila circular
 typedef struct {
-    no_t *inicio;           // Início da fila
-    no_t *fim;              // Fim da fila
+    no_t *inicio;
+    no_t *fim;
 } fila_t;
 
 struct so_t {
@@ -38,14 +42,17 @@ struct so_t {
   mem_t *mem;
   es_t *es;
   console_t *console;
-  processo_t tabela_processos[MAX_PROCESSOS]; // Tabela de processos
-  processo_t *processo_corrente;              // Ponteiro para o processo em execução ou NULL
-  fila_t *fila_processos;                      // Fila de processos prontos (implementada como fila circular)
+  processo_t tabela_processos[MAX_PROCESSOS];
+  processo_t *processo_corrente;
+  fila_t *fila_processos;
+
+  escalonador_t escalonador;
+
   int quantidade_processos;
-  int quantum;                                // Tempo de quantum disponível para um processo
-  int relogio;                                // Relógio do sistema
-  int contador_pid;                           // Contador para gerar os PIDs
-  bool erro_interno;                          // Indica erro interno do sistema
+  int quantum;
+  int relogio;
+  int contador_pid;
+  bool erro_interno;
 
   int ultimo_relogio;
   int tempo_execucao;
@@ -101,29 +108,28 @@ static bool copia_str_da_mem(int tam, char str[tam], mem_t *mem, int ender);
 
 // Inicializa a tabela de processos do SO
 static void so_inicializa_tabela_processos(so_t *self) {
-    for (int i = 0; i < MAX_PROCESSOS; i++) {
-        self->tabela_processos[i].pid = PID_NENHUM;  // Nenhum processo inicializado
-        self->tabela_processos[i].pc = 0;           // PC zerado
-        self->tabela_processos[i].a = 0;            // Registrador A zerado
-        self->tabela_processos[i].x = 0;            // Registrador X zerado
-        self->tabela_processos[i].estado = PARADO;  // Estado inicial é PARADO
-        self->tabela_processos[i].modo = KERNEL;    // Modo inicial é KERNEL
-        self->tabela_processos[i].pid_esperado = 0; // PID esperado
-        self->tabela_processos[i].motivo_bloqueio = 0; // Nenhum motivo de bloqueio
-        self->tabela_processos[i].prioridade = 0;   // Prioridade padrão
+	for (int i = 0; i < MAX_PROCESSOS; i++) {
+		self->tabela_processos[i].pid = PID_NENHUM;
+		self->tabela_processos[i].pc = 0;
+		self->tabela_processos[i].a = 0;
+		self->tabela_processos[i].x = 0;
+		self->tabela_processos[i].estado = PARADO;
+		self->tabela_processos[i].modo = KERNEL;
+		self->tabela_processos[i].pid_esperado = 0;
+		self->tabela_processos[i].motivo_bloqueio = 0;
+		self->tabela_processos[i].prioridade = 0;
 
-        // Inicializa métricas
-        self->tabela_processos[i].metricas.vezes_pronto = 0;
-        self->tabela_processos[i].metricas.vezes_executando = 0;
-        self->tabela_processos[i].metricas.vezes_bloqueado = 0;
-
-        self->tabela_processos[i].metricas.tempo_pronto = 0;
-        self->tabela_processos[i].metricas.tempo_executando = 0;
-        self->tabela_processos[i].metricas.tempo_bloqueado = 0;
-        self->tabela_processos[i].metricas.tempo_total = 0;
-
-        self->tabela_processos[i].metricas.preempcoes = 0;
-    }
+		// Inicializa métricas
+		self->tabela_processos[i].metricas.vezes_pronto = 0;
+		self->tabela_processos[i].metricas.vezes_executando = 0;
+		self->tabela_processos[i].metricas.vezes_bloqueado = 0;
+		self->tabela_processos[i].metricas.tempo_pronto = 0;
+		self->tabela_processos[i].metricas.tempo_executando = 0;
+		self->tabela_processos[i].metricas.tempo_bloqueado = 0;
+		self->tabela_processos[i].metricas.tempo_total = 0;
+		self->tabela_processos[i].metricas.tempo_medio_de_resposta = 0;
+		self->tabela_processos[i].metricas.preempcoes = 0;
+	}
 }
 
 
@@ -179,7 +185,7 @@ so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console) {
   self->console = console;
   self->erro_interno = false;
   self->quantidade_processos = 0;
-  self->contador_pid = 1000;      // Inicializa o contador de PIDs
+  self->contador_pid = 0;      // Inicializa o contador de PIDs
   self->processo_corrente = NULL; // Nenhum processo em execução inicialmente
   self->relogio = -1;
   self->quantum = 0;
@@ -188,6 +194,7 @@ so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console) {
   self->tempo_execucao = 0; //metricas
   self->tempo_ocioso = 0;
   self->preempcoes_totais = 0;
+  self->escalonador = ESCALONADOR_CIRCULAR;
   self->interrupcoes = (int *)malloc(6 * sizeof(int));
 
   self->fila_processos = cira_fila();
@@ -219,54 +226,70 @@ static void so_escalona(so_t *self);
 static int so_despacha(so_t *self);
 
 void so_imprime_metricas(so_t *self) {
-    // Nome fixo ou gerado para o arquivo
-    const char *nome_arquivo = "metricas_processos.txt";
+	const char *nome_arquivo = "metricas_processos.txt";
 
-    // Abre o arquivo para escrita
-    FILE *arquivo = fopen(nome_arquivo, "w");
-    if (arquivo == NULL) {
-        console_printf("Erro ao abrir o arquivo '%s' para escrita.\n", nome_arquivo);
-        return;
-    }
-    
-    fprintf(arquivo, "------------------- Metricas do SO ------------------- \n");
+	FILE *arquivo = fopen(nome_arquivo, "w");
+	if (arquivo == NULL) {
+		console_printf("Erro ao abrir o arquivo '%s' para escrita.\n", nome_arquivo);
+		return;
+	}
 
-    // Escreve os dados no arquivo
-    fprintf(arquivo, "Processos criados: %d\n", self->quantidade_processos);
-    fprintf(arquivo, "Tempo total de execucao : %d\n", self->tempo_execucao);
-    fprintf(arquivo, "Tempo total ocioso : %d\n", self->tempo_ocioso);
-    fprintf(arquivo, "Numero de preempcoes totais : %d\n", self->preempcoes_totais);
+	fprintf(arquivo, "============================== MÉTRICAS DO SISTEMA ===============================\n\n");
 
-    fprintf(arquivo, "Numero de interrupcoes totais do tipo IRQ_RESET: %d\n", self->interrupcoes[IRQ_RESET]);
-    fprintf(arquivo, "Numero de interrupcoes totais do tipo IRQ_ERR_CPU: %d\n", self->interrupcoes[IRQ_ERR_CPU]);
-    fprintf(arquivo, "Numero de interrupcoes totais do tipo IRQ_SISTEMA: %d\n", self->interrupcoes[IRQ_SISTEMA]);
-    fprintf(arquivo, "Numero de interrupcoes totais do tipo IRQ_RELOGIO: %d\n", self->interrupcoes[IRQ_RELOGIO]);
-    fprintf(arquivo, "Numero de interrupcoes totais do tipo IRQ_TECLADO: %d\n", self->interrupcoes[IRQ_TECLADO]);
-    fprintf(arquivo, "Numero de interrupcoes totais do tipo IRQ_TELA: %d\n", self->interrupcoes[IRQ_TELA]);
+	fprintf(arquivo, "GERAL:\n");
+	fprintf(arquivo, "  Processos criados          : %d\n", self->quantidade_processos);
+	fprintf(arquivo, "  Tempo total de execução    : %d\n", self->tempo_execucao);
+	fprintf(arquivo, "  Tempo total ocioso         : %d\n", self->tempo_ocioso);
+	fprintf(arquivo, "  Número de preempções       : %d\n", self->preempcoes_totais);
+	fprintf(arquivo, "\nINTERRUPÇÕES:\n");
+	fprintf(arquivo, "  IRQ_RESET                  : %d\n", self->interrupcoes[IRQ_RESET]);
+	fprintf(arquivo, "  IRQ_ERR_CPU                : %d\n", self->interrupcoes[IRQ_ERR_CPU]);
+	fprintf(arquivo, "  IRQ_SISTEMA                : %d\n", self->interrupcoes[IRQ_SISTEMA]);
+	fprintf(arquivo, "  IRQ_RELOGIO                : %d\n", self->interrupcoes[IRQ_RELOGIO]);
+	fprintf(arquivo, "  IRQ_TECLADO                : %d\n", self->interrupcoes[IRQ_TECLADO]);
+	fprintf(arquivo, "  IRQ_TELA                   : %d\n", self->interrupcoes[IRQ_TELA]);
 
+	fprintf(arquivo, "\n============================ MÉTRICAS DOS PROCESSOS ============================\n\n");
 
-    fprintf(arquivo, "--------------- Metricas dos Processos --------------- \n");
-    for (int i = 0; i < self->quantidade_processos; i++) {
-        processo_t *proc = &self->tabela_processos[i];
+	// Tabela de tempos
+	fprintf(arquivo, "------------- TABELA DE TEMPOS -------------\n");
+	fprintf(arquivo, "| PID | Tempo Exec. | Tempo Pronto | Tempo Bloq. | Tempo Retorno | Resp. Médio |\n");
+	fprintf(arquivo, "|-----|-------------|--------------|-------------|---------------|-------------|\n");
 
-        fprintf(arquivo, "Processo PID: %d\n", proc->pid);
-        fprintf(arquivo, "  Vezes executando: %d\n", proc->metricas.vezes_executando);
-        fprintf(arquivo, "  Vezes pronto: %d\n", proc->metricas.vezes_pronto);
-        fprintf(arquivo, "  Vezes bloqueado: %d\n", proc->metricas.vezes_bloqueado);
+	for (int i = 0; i < self->quantidade_processos; i++) {
+		processo_t *proc = &self->tabela_processos[i];
+		fprintf(arquivo,
+			"| %-3d | %-11d | %-12d | %-11d | %-13d | %-11.2f |\n",
+			proc->pid,
+			proc->metricas.tempo_executando,
+			proc->metricas.tempo_pronto,
+			proc->metricas.tempo_bloqueado,
+			proc->metricas.tempo_total,
+			proc->metricas.tempo_medio_de_resposta);
+	}
 
-        fprintf(arquivo, "  Tempo executando: %d\n", proc->metricas.tempo_executando);
-        fprintf(arquivo, "  Tempo pronto: %d\n", proc->metricas.tempo_pronto);
-        fprintf(arquivo, "  Tempo bloqueado: %d\n", proc->metricas.tempo_bloqueado);
-        fprintf(arquivo, "  Tempo retorno: %d\n", proc->metricas.tempo_total);
-        fprintf(arquivo, "  Numero de preempcoes: %d\n", proc->metricas.preempcoes);
-    }
+	fprintf(arquivo, "\n------------- TABELA DE VEZES -------------\n");
+	fprintf(arquivo, "| PID | Execuções | Preempções | Vezes Pronto | Vezes Bloq. |\n");
+	fprintf(arquivo, "|-----|-----------|------------|--------------|-------------|\n");
 
-    // Fecha o arquivo
-    fclose(arquivo);
+	// Tabela de vezes
+	for (int i = 0; i < self->quantidade_processos; i++) {
+		processo_t *proc = &self->tabela_processos[i];
+		fprintf(arquivo,
+			"| %-3d | %-9d | %-10d | %-12d | %-11d |\n",
+			proc->pid,
+			proc->metricas.vezes_executando,
+			proc->metricas.preempcoes,
+			proc->metricas.vezes_pronto,
+			proc->metricas.vezes_bloqueado);
+	}
 
-    console_printf("Métricas salvas no arquivo '%s'.\n", nome_arquivo);
+	fprintf(arquivo, "\n================================================================================\n");
+
+	fclose(arquivo);
+
+	console_printf("Métricas salvas no arquivo '%s'.\n", nome_arquivo);
 }
-
 
 static bool so_tem_trabalho(so_t *self)
 {
@@ -287,6 +310,7 @@ void calcula_metricas_final(so_t *self) {
     self->preempcoes_totais += proc->metricas.preempcoes;
 
     proc->metricas.tempo_total = proc->metricas.tempo_executando + proc->metricas.tempo_bloqueado + proc->metricas.tempo_pronto;
+    proc->metricas.tempo_medio_de_resposta = (double)proc->metricas.tempo_pronto / proc->metricas.vezes_pronto;
   }
 }
 
@@ -515,6 +539,77 @@ static bool necessita_escalonar(so_t *self)
   return false;
 }
 
+static void escalonador_normal(so_t *self) {
+	// Se o processo corrente ainda está executando, mantém ele
+	if (self->processo_corrente != NULL && proc_get_estado(self->processo_corrente) == EXECUTANDO) {
+		return;
+	}
+
+	// Define o processo corrente como NULL inicialmente
+	self->processo_corrente = NULL;
+
+	// Busca o próximo processo pronto
+	for (int i = 0; i < self->quantidade_processos; i++) {
+		processo_t *proc = &self->tabela_processos[i]; // Obtem o processo da tabela
+		if (proc != NULL && proc_get_estado(proc) == PRONTO) {
+			self->processo_corrente = proc; // Define como o próximo processo corrente
+			return;
+		}
+	}
+}
+
+static void escalonador_circular(so_t *self) {
+  if(self->quantum == 0){
+
+    remove_fila(self->fila_processos,self->processo_corrente);
+    fila_insere(self->fila_processos, self->processo_corrente);
+
+    self->processo_corrente->metricas.preempcoes++;
+  }
+
+  processo_t *proc = proximo_processo(self);
+
+  if(proc == self->processo_corrente){
+    self->quantum--;
+    self->processo_corrente = proc;
+    return;
+  }else {
+    self->quantum = INTERVALO_QUANTUM;
+    self->processo_corrente = proc;
+  }
+}
+
+static void escalonador_round_robin(so_t *self) {
+  fila_imprime(self->fila_processos);  // Imprime o conteúdo atual da fila
+
+  processo_t *proc_prev = self->processo_corrente;
+
+  if (!necessita_escalonar(self)) {
+    return;
+  }
+
+  // Se um processo corrente existe, atualiza sua prioridade
+  if (self->processo_corrente != NULL) {
+    calcula_prioridade(self, self->processo_corrente);
+  }
+
+  // Escolhe o próximo processo
+  self->processo_corrente = proximo_processo(self);
+
+  // Se nenhum processo está pronto, define o quantum como 0 e retorna
+  if (self->processo_corrente == NULL) {
+    console_printf("SO: Nenhum processo pronto, aguardando interrupções.\n");
+    self->quantum = 0; // Quantum zero indica que o SO está ocioso
+    return;
+  }
+
+  // Se mudou o processo em execução, reseta o quantum
+  if (self->processo_corrente != proc_prev) {
+    self->quantum = INTERVALO_QUANTUM;
+    self->processo_corrente->metricas.preempcoes++;
+  }
+}
+
 static void so_escalona(so_t *self) {
     console_printf("=== TABELA DE PROCESSOS ===\n");
     for (int i = 0; i < self->quantidade_processos; i++) {
@@ -524,34 +619,23 @@ static void so_escalona(so_t *self) {
                        proc->metricas.tempo_pronto, proc->metricas.tempo_bloqueado);
     }
 
-    fila_imprime(self->fila_processos);  // Imprime o conteúdo atual da fila
+  switch (self->escalonador) {
+		case ESCALONADOR_NORMAL:
+			escalonador_normal(self);
+			break;
 
-    processo_t *proc_prev = self->processo_corrente;
+		case ESCALONADOR_CIRCULAR:
+			escalonador_circular(self);
+			break;
 
-    if (!necessita_escalonar(self)) {
-        return;
-    }
+		case ESCALONADOR_ROUND_ROBIN:
+			escalonador_round_robin(self);
+			break;
 
-    // Se um processo corrente existe, atualiza sua prioridade
-    if (self->processo_corrente != NULL) {
-        calcula_prioridade(self, self->processo_corrente);
-    }
-
-    // Escolhe o próximo processo
-    self->processo_corrente = proximo_processo(self);
-
-    // Se nenhum processo está pronto, define o quantum como 0 e retorna
-    if (self->processo_corrente == NULL) {
-        console_printf("SO: Nenhum processo pronto, aguardando interrupções.\n");
-        self->quantum = 0; // Quantum zero indica que o SO está ocioso
-        return;
-    }
-
-    // Se mudou o processo em execução, reseta o quantum
-    if (self->processo_corrente != proc_prev) {
-        self->quantum = INTERVALO_QUANTUM;
-        self->processo_corrente->metricas.preempcoes++;
-    }
+		default:
+			console_printf("SO: Escalonador desconhecido! Nenhuma ação será realizada.\n");
+			break;
+	  }
 }
 
 static int so_despacha(so_t *self) {

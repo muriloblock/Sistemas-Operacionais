@@ -32,6 +32,8 @@ typedef struct proc_metricas_t {
     int tempo_total;
 
     int preempcoes;
+
+    double tempo_medio_de_resposta;
 } proc_metricas_t;
 
 typedef struct {
