@@ -22,8 +22,8 @@
 
 typedef enum {
   ESCALONADOR_NORMAL,
-  ESCALONADOR_CIRCULAR,
-  ESCALONADOR_ROUND_ROBIN
+  ESCALONADOR_ROUND_ROBIN,
+  ESCALONADOR_ROUND_ROBIN_PRIORIDADE
 } escalonador_t;
 
 typedef struct no {
@@ -194,7 +194,7 @@ so_t *so_cria(cpu_t *cpu, mem_t *mem, es_t *es, console_t *console) {
   self->tempo_execucao = 0; //metricas
   self->tempo_ocioso = 0;
   self->preempcoes_totais = 0;
-  self->escalonador = ESCALONADOR_ROUND_ROBIN;
+  self->escalonador = 0;
   self->interrupcoes = (int *)malloc(6 * sizeof(int));
 
   self->fila_processos = cira_fila();
@@ -235,6 +235,8 @@ void so_imprime_metricas(so_t *self) {
     }
 
     fprintf(arquivo, "============================== MÉTRICAS DO SISTEMA ===============================\n\n");
+
+    fprintf(arquivo, "  Escalonador                : %d\n\n", self->escalonador);
 
     fprintf(arquivo, "GERAL:\n");
     fprintf(arquivo, "  Processos criados          : %d\n", self->quantidade_processos);
@@ -563,7 +565,7 @@ static void escalonador_normal(so_t *self) {
 	}
 }
 
-static void escalonador_circular(so_t *self) {
+static void escalonador_ROUND_ROBIN(so_t *self) {
   if(self->quantum == 0){
 
     remove_fila(self->fila_processos,self->processo_corrente);
@@ -584,7 +586,7 @@ static void escalonador_circular(so_t *self) {
   }
 }
 
-static void escalonador_round_robin(so_t *self) {
+static void escalonador_round_robin_PRIORIDADE(so_t *self) {
   fila_imprime(self->fila_processos);  // Imprime o conteúdo atual da fila
 
   processo_t *proc_prev = self->processo_corrente;
@@ -621,7 +623,7 @@ static void so_escalona(so_t *self) {
         processo_t *proc = &self->tabela_processos[i];
         console_printf("I=%d: PID=%d, PC=%d, A=%d, X=%d, ESTADO=%d, EXEC=%d, PRONT=%d, BLOQ=%d\n",
                        i, proc->pid, proc->pc, proc->a, proc->x, proc->estado, proc->metricas.tempo_executando,
-                       proc->metricas.tempo_pronto, proc->metricas.tempo_bloqueado);
+                       proc->metricas.tempo_pronto, proc->pid_esperado);
     }
 
   switch (self->escalonador) {
@@ -629,12 +631,12 @@ static void so_escalona(so_t *self) {
 			escalonador_normal(self);
 			break;
 
-		case ESCALONADOR_CIRCULAR:
-			escalonador_circular(self);
+		case ESCALONADOR_ROUND_ROBIN:
+			escalonador_ROUND_ROBIN(self);
 			break;
 
-		case ESCALONADOR_ROUND_ROBIN:
-			escalonador_round_robin(self);
+		case ESCALONADOR_ROUND_ROBIN_PRIORIDADE:
+			escalonador_round_robin_PRIORIDADE(self);
 			break;
 
 		default:
